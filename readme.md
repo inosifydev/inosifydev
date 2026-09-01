@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/InosifyDev/.github/main/assets/inosify.png" width="120" /> 
+<img src="https://github.com/inosifydev/inosifydev/blob/main/assets/inosify.png" width="120" /> 
 
 # InosifyDev
 
