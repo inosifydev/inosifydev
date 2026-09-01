@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InosifyDev — Inovasi Digital, Solusi Nyata</title>
+<meta name="description" content="InosifyDev membantu UMKM dan mahasiswa mewujudkan ide menjadi website dan aplikasi mobile yang nyata, modern, dan terjangkau.">
+<meta property="og:title" content="InosifyDev">
+<meta property="og:description" content="Inovasi Digital, Solusi Nyata.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root{
+  --navy-950:#0B1330;
+  --navy-900:#101B42;
+  --navy-800:#17244F;
+  --navy-700:#20306A;
+  --blue-700:#1E40C4;
+  --blue-600:#2557E0;
+  --blue-500:#3E70F2;
+  --amber-500:#F5A623;
+  --amber-400:#FFC24D;
+  --white:#FFFFFF;
+  --slate-50:#F7F8FC;
+  --slate-100:#EEF1FA;
+  --slate-200:#E1E6F5;
+  --slate-500:#646F8C;
+  --slate-600:#454F6B;
+  --slate-900:#10142A;
+  --radius:14px;
+  --maxw:1180px;
+  --shadow-soft:0 1px 2px rgba(16,22,55,.05), 0 8px 24px -8px rgba(16,22,55,.12);
+  --shadow-lift:0 4px 6px rgba(16,22,55,.05), 0 20px 40px -12px rgba(16,22,55,.22);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--slate-900);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+h1,h2,h3,h4{
+  font-family:'Space Grotesk',sans-serif;
+  color:var(--navy-950);
+  margin:0;
+  letter-spacing:-0.02em;
+}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+ul{margin:0;padding:0;list-style:none;}
+img,svg{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+.wrap{
+  width:100%;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 24px;
+}
+@media (min-width:768px){ .wrap{padding:0 40px;} }
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--blue-600);
+}
+.eyebrow::before{
+  content:'';
+  width:6px;height:6px;border-radius:50%;
+  background:var(--amber-500);
+  box-shadow:0 0 0 3px rgba(245,166,35,.18);
+}
+.eyebrow.on-dark{color:var(--amber-400);}
+
+.section-title{
+  font-size:clamp(28px,3.6vw,40px);
+  font-weight:600;
+  line-height:1.15;
+  margin-top:10px;
+}
+.section-lead{
+  color:var(--slate-600);
+  font-size:16.5px;
+  max-width:620px;
+  margin-top:14px;
+}
+.section-head{margin-bottom:52px;}
+.section-head.center{text-align:center;margin-left:auto;margin-right:auto;}
+.section-head.center .section-lead{margin-left:auto;margin-right:auto;}
+
+section{position:relative;}
+.pad{padding:96px 0;}
+@media (max-width:640px){ .pad{padding:64px 0;} }
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:15px;
+  border:1px solid transparent;
+  transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+  white-space:nowrap;
+}
+.btn:active{transform:translateY(1px);}
+.btn-primary{
+  background:var(--amber-500);
+  color:var(--navy-950);
+  box-shadow:0 8px 20px -6px rgba(245,166,35,.5);
+}
+.btn-primary:hover{background:var(--amber-400); box-shadow:0 10px 26px -6px rgba(245,166,35,.55); transform:translateY(-1px);}
+.btn-ghost-dark{
+  background:transparent;
+  border-color:rgba(255,255,255,.24);
+  color:#fff;
+}
+.btn-ghost-dark:hover{border-color:rgba(255,255,255,.5); background:rgba(255,255,255,.06);}
+.btn-outline{
+  background:transparent;
+  border-color:var(--slate-200);
+  color:var(--navy-950);
+}
+.btn-outline:hover{border-color:var(--blue-600); color:var(--blue-600);}
+.btn-sm{padding:9px 16px;font-size:13.5px;}
+.icon{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ---------- Navbar ---------- */
+header.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(16,22,55,.06);
+  transition:box-shadow .25s ease;
+}
+header.nav.scrolled{box-shadow:0 2px 20px rgba(16,22,55,.08);}
+.nav-row{
+  display:flex;align-items:center;justify-content:space-between;
+  height:76px;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:18px;letter-spacing:0.01em;
+  color:var(--navy-950);
+}
+.logo b{color:var(--blue-600);}
+.logo-mark{
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;flex-shrink:0;
+}
+.logo-mark img{width:100%;height:100%;object-fit:contain;display:block;}
+.nav-links{
+  display:none;
+  align-items:center;
+  gap:36px;
+}
+.nav-links a{
+  font-size:14.5px;font-weight:500;color:var(--slate-600);
+  position:relative;padding:6px 0;
+  transition:color .18s ease;
+}
+.nav-links a:hover{color:var(--navy-950);}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:var(--blue-600);transition:width .22s ease;
+}
+.nav-links a:hover::after{width:100%;}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-cta{display:none;}
+.hamburger{
+  display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:8px;border:1px solid var(--slate-200);
+  background:#fff;
+}
+.hamburger .icon{width:20px;height:20px;}
+@media (min-width:900px){
+  .nav-links{display:flex;}
+  .nav-cta{display:inline-flex;}
+  .hamburger{display:none;}
+}
+
+.mobile-menu{
+  display:none;
+  position:fixed;inset:76px 0 0 0;
+  background:#fff;
+  z-index:99;
+  overflow-y:auto;
+  border-top:1px solid var(--slate-200);
+}
+.mobile-menu.open{display:block;animation:fadeSlide .22s ease;}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.mobile-menu .wrap{padding-top:28px;padding-bottom:36px;display:flex;flex-direction:column;gap:4px;}
+.mobile-menu a.mlink{
+  padding:16px 4px;font-size:18px;font-weight:600;color:var(--navy-950);
+  border-bottom:1px solid var(--slate-100);
+}
+.mobile-menu .btn{margin-top:20px;width:100%;}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:var(--navy-950);
+  background-image:radial-gradient(ellipse 900px 500px at 85% 0%, rgba(37,87,224,.35), transparent 60%),
+                    radial-gradient(ellipse 500px 400px at 100% 10%, rgba(245,166,35,.16), transparent 60%);
+  color:#fff;
+  padding:64px 0 0 0;
+  overflow:hidden;
+  position:relative;
+}
+.hero .wrap{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px;
+  align-items:center;
+  padding-top:56px;padding-bottom:64px;
+}
+@media (min-width:960px){
+  .hero .wrap{grid-template-columns:1.05fr 0.95fr; gap:40px; padding-top:76px;padding-bottom:96px;}
+}
+.hero-head h1{
+  font-size:clamp(34px,5vw,54px);
+  font-weight:600;
+  line-height:1.08;
+  margin-top:18px;
+  color:#fff;
+}
+.hero-head h1 .hl{color:var(--amber-400);}
+.hero-head p{
+  margin-top:22px;
+  font-size:17px;
+  color:rgba(255,255,255,.68);
+  max-width:520px;
+  line-height:1.7;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+.trust-row{
+  display:flex;gap:0;
+  margin-top:56px;
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:28px;
+  max-width:520px;
+}
+.trust-item{flex:1;padding-right:18px;}
+.trust-item + .trust-item{border-left:1px solid rgba(255,255,255,.12); padding-left:18px;}
+.trust-num{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:600;color:#fff;}
+.trust-label{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:4px;}
+
+/* Hero visual: idea network */
+.hero-visual{position:relative;height:420px;}
+.hero-visual svg{width:100%;height:100%;}
+.node{fill:var(--amber-400);}
+.node-dim{fill:#3E70F2;opacity:.6;}
+.hv-line{stroke:rgba(148,175,255,.32);stroke-width:1.4;fill:none;}
+.hv-line-pulse{stroke:var(--amber-400);stroke-width:1.6;fill:none;stroke-dasharray:6 10;animation:dashmove 3.5s linear infinite;opacity:.85;}
+@keyframes dashmove{to{stroke-dashoffset:-160;}}
+.hv-card{
+  position:absolute;
+  background:rgba(16,27,66,.72);
+  border:1px solid rgba(148,175,255,.22);
+  backdrop-filter:blur(8px);
+  border-radius:12px;
+  padding:14px 16px;
+  box-shadow:0 20px 40px -14px rgba(0,0,0,.5);
+  animation:floaty 5s ease-in-out infinite;
+}
+.hv-card .cap{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase;}
+.hv-card .val{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;color:#fff;margin-top:3px;}
+.hv-card.c1{top:8%;left:2%;animation-delay:0s;}
+.hv-card.c2{bottom:10%;right:0%;animation-delay:1.2s;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+@media (max-width:959px){ .hero-visual{height:340px;} }
+
+/* ---------- About ---------- */
+.about-grid{
+  display:grid;grid-template-columns:1fr;gap:56px;
+  align-items:start;
+}
+@media (min-width:900px){ .about-grid{grid-template-columns:0.9fr 1.1fr;} }
+.about-copy p{color:var(--slate-600);font-size:16px;margin-top:18px;line-height:1.75;}
+.value-list{margin-top:32px;display:flex;flex-direction:column;gap:20px;}
+.value-item{display:flex;gap:14px;align-items:flex-start;}
+.value-ic{
+  flex-shrink:0;width:40px;height:40px;border-radius:10px;
+  background:var(--slate-50);border:1px solid var(--slate-200);
+  display:flex;align-items:center;justify-content:center;color:var(--blue-600);
+}
+.value-item h4{font-size:15.5px;font-weight:600;}
+.value-item span{font-size:14px;color:var(--slate-500);display:block;margin-top:3px;}
+
+.about-panel{
+  background:var(--slate-50);
+  border:1px solid var(--slate-200);
+  border-radius:20px;
+  padding:32px;
+  position:relative;
+  overflow:hidden;
+}
+.about-panel::after{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle, rgba(37,87,224,.10) 1px, transparent 1px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(to bottom, transparent, black 40%, black 100%);
+  pointer-events:none;
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;}
+.stat-box{background:#fff;border:1px solid var(--slate-200);border-radius:14px;padding:20px;}
+.stat-box .n{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--navy-950);}
+.stat-box .l{font-size:13px;color:var(--slate-500);margin-top:6px;}
+
+/* ---------- Services ---------- */
+.svc-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+@media (min-width:700px){ .svc-grid{grid-template-columns:1fr 1fr;} }
+@media (min-width:1080px){ .svc-grid{grid-template-columns:repeat(4,1fr);} }
+.svc-card{
+  background:#fff;border:1px solid var(--slate-200);border-radius:16px;
+  padding:28px 24px;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);border-color:transparent;}
+.svc-ic{
+  width:46px;height:46px;border-radius:12px;
+  background:var(--navy-950);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--amber-400);margin-bottom:20px;
+}
+.svc-card h3{font-size:17px;font-weight:600;}
+.svc-card p{font-size:14.5px;color:var(--slate-600);margin-top:10px;line-height:1.65;}
+.svc-link{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:18px;font-size:13.5px;font-weight:600;color:var(--blue-600);
+}
+.svc-link .icon{width:14px;height:14px;transition:transform .18s ease;}
+.svc-card:hover .svc-link .icon{transform:translateX(3px);}
+
+/* ---------- Why us ---------- */
+.why{background:var(--navy-950);color:#fff;position:relative;overflow:hidden;}
+.why::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(ellipse 700px 400px at 10% 100%, rgba(37,87,224,.28), transparent 60%);
+}
+.why-grid{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.10);border-radius:18px;overflow:hidden;position:relative;}
+@media (min-width:800px){ .why-grid{grid-template-columns:repeat(4,1fr);} }
+.why-cell{background:var(--navy-900);padding:34px 26px;}
+.why-cell .num{font-family:'JetBrains Mono',monospace;color:var(--amber-400);font-size:13px;font-weight:600;}
+.why-cell h3{color:#fff;font-size:16.5px;font-weight:600;margin-top:14px;}
+.why-cell p{color:rgba(255,255,255,.55);font-size:14px;margin-top:10px;line-height:1.6;}
+
+/* ---------- Portfolio ---------- */
+.proj-grid{display:grid;grid-template-columns:1fr;gap:26px;}
+@media (min-width:860px){ .proj-grid{grid-template-columns:repeat(3,1fr);} }
+.proj-card{
+  border:1px solid var(--slate-200);border-radius:18px;overflow:hidden;background:#fff;
+  transition:transform .22s ease, box-shadow .22s ease;
+}
+.proj-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift);}
+.proj-mock{
+  height:190px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.proj-mock .browser{
+  width:84%;height:74%;background:rgba(255,255,255,.94);border-radius:8px;
+  box-shadow:0 14px 30px -10px rgba(0,0,0,.35);overflow:hidden;
+}
+.proj-mock .bar{height:20px;background:rgba(16,27,66,.85);display:flex;align-items:center;gap:5px;padding:0 9px;}
+.proj-mock .bar span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);}
+.proj-mock .body{padding:12px;}
+.proj-mock .ln{height:7px;border-radius:3px;background:rgba(16,27,66,.10);margin-bottom:7px;}
+.proj-mock .ln.w60{width:60%;}
+.proj-mock .ln.w40{width:40%;}
+.proj-mock .blk{height:46px;border-radius:6px;margin-top:8px;}
+.proj-1{background:linear-gradient(135deg,#17244F,#2557E0);}
+.proj-1 .blk{background:linear-gradient(135deg,#3E70F2,#17244F);}
+.proj-2{background:linear-gradient(135deg,#7A4A0A,#F5A623);}
+.proj-2 .blk{background:linear-gradient(135deg,#FFC24D,#7A4A0A);}
+.proj-3{background:linear-gradient(135deg,#0B1330,#2557E0);}
+.proj-3 .blk{background:linear-gradient(135deg,#F5A623,#2557E0);}
+.proj-body{padding:24px;}
+.proj-cat{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-600);}
+.proj-body h3{font-size:18.5px;font-weight:600;margin-top:8px;}
+.proj-body p{font-size:14px;color:var(--slate-600);margin-top:8px;line-height:1.6;}
+.tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:4px 9px;border-radius:6px;background:var(--slate-50);border:1px solid var(--slate-200);color:var(--slate-600);}
+.proj-body .svc-link{margin-top:20px;}
+
+/* ---------- Process ---------- */
+.process-track{position:relative;margin-top:8px;}
+.process-line{
+  position:absolute;top:23px;left:0;right:0;height:2px;
+  background:var(--slate-200);display:none;
+}
+@media (min-width:860px){ .process-line{display:block;} }
+.process-grid{display:grid;grid-template-columns:1fr;gap:0;position:relative;}
+@media (min-width:860px){ .process-grid{grid-template-columns:repeat(4,1fr);} }
+.pstep{
+  display:flex;gap:18px;position:relative;padding:0 18px 40px 0;
+}
+@media (min-width:860px){ .pstep{flex-direction:column;gap:22px;padding:0 22px 0 0;} }
+.pdot{
+  width:46px;height:46px;border-radius:50%;
+  background:#fff;border:2px solid var(--blue-600);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;color:var(--blue-600);
+  flex-shrink:0;position:relative;z-index:2;
+}
+.pstep:last-child .vline{display:none;}
+.vline{position:absolute;left:23px;top:46px;bottom:-16px;width:2px;background:var(--slate-200);}
+@media (min-width:860px){ .vline{display:none;} }
+.pstep h4{font-size:16px;font-weight:600;}
+.pstep p{font-size:14px;color:var(--slate-600);margin-top:8px;line-height:1.6;max-width:230px;}
+
+/* ---------- Testimonials ---------- */
+.test-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+@media (min-width:860px){ .test-grid{grid-template-columns:repeat(3,1fr);} }
+.test-card{
+  background:var(--slate-50);border:1px solid var(--slate-200);border-radius:16px;padding:28px;
+  display:flex;flex-direction:column;
+}
+.stars{display:flex;gap:3px;color:var(--amber-500);}
+.stars .icon{width:15px;height:15px;fill:currentColor;stroke:none;}
+.test-card q{font-size:15px;color:var(--slate-900);margin-top:16px;line-height:1.7;quotes:none;font-style:normal;flex-grow:1;}
+.test-person{display:flex;align-items:center;gap:12px;margin-top:22px;}
+.avatar{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;color:#fff;font-size:15px;
+  line-height:1;
+  text-align:center;
+}
+
+/* Ensure avatar initials are visually centered */
+.avatar{line-height:42px;flex-shrink:0}
+.test-person h5{font-size:14.5px;font-weight:600;}
+.test-person span{font-size:12.5px;color:var(--slate-500);display:block;margin-top:2px;}
+
+/* ---------- CTA ---------- */
+.cta-section{
+  background:var(--navy-950);
+  background-image:radial-gradient(ellipse 800px 400px at 50% 0%, rgba(245,166,35,.18), transparent 65%);
+  color:#fff;text-align:center;
+}
+.cta-section h2{color:#fff;font-size:clamp(28px,4vw,42px);max-width:680px;margin:16px auto 0;}
+.cta-section p{color:rgba(255,255,255,.62);max-width:520px;margin:18px auto 0;font-size:16px;line-height:1.7;}
+.cta-section .hero-actions{justify-content:center;margin-top:32px;}
+.cta-section .eyebrow{justify-content:center;width:100%;}
+.cta-note{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber-400);letter-spacing:.03em;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--navy-900);color:rgba(255,255,255,.62);padding:64px 0 28px;}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:44px;}
+@media (min-width:760px){ .foot-grid{grid-template-columns:1.4fr 1fr 1fr 1.2fr;} }
+.foot-logo{color:#fff;}
+.foot-desc{font-size:14px;margin-top:16px;max-width:280px;line-height:1.7;}
+.foot-col h5{color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;margin-bottom:18px;}
+.foot-col li{margin-bottom:12px;font-size:14.5px;}
+.foot-col a:hover{color:#fff;}
+.foot-contact li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;}
+.foot-contact .icon{width:16px;height:16px;color:var(--amber-400);flex-shrink:0;margin-top:2px;}
+.social-row{display:flex;gap:10px;margin-top:20px;}
+.social-row a{
+  width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;transition:border-color .18s ease, background .18s ease;
+}
+.social-row a:hover{border-color:var(--amber-400);background:rgba(245,166,35,.1);}
+.social-row .icon{width:16px;height:16px;}
+.foot-bottom{
+  margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.10);
+  display:flex;flex-direction:column;gap:10px;
+  font-size:13px;
+}
+@media (min-width:640px){ .foot-bottom{flex-direction:row;justify-content:space-between;align-items:center;} }
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger.in .rs-child{opacity:1;transform:translateY(0);}
+.rs-child{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+
+:focus-visible{outline:2px solid var(--blue-600);outline-offset:3px;border-radius:4px;}
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="nav" id="navHeader">
+  <div class="wrap nav-row">
+    <a href="#beranda" class="logo">
+      <span class="logo-mark">
+        <img src="assets/inosify.png" alt="InosifyDev logo">
+      </span>
+      Inosify<b>Dev</b>
+    </a>
+    <nav class="nav-links" aria-label="Navigasi utama">
+      <a href="#beranda">Beranda</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#layanan">Layanan</a>
+      <a href="#proyek">Proyek</a>
+      <a href="#proses">Proses</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#kontak" class="btn btn-primary btn-sm nav-cta">Konsultasi Gratis</a>
+      <button class="hamburger" id="menuBtn" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg class="icon" id="menuIconOpen" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        <svg class="icon" id="menuIconClose" viewBox="0 0 24 24" style="display:none;"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="wrap">
+    <a href="#beranda" class="mlink">Beranda</a>
+    <a href="#tentang" class="mlink">Tentang</a>
+    <a href="#layanan" class="mlink">Layanan</a>
+    <a href="#proyek" class="mlink">Proyek</a>
+    <a href="#proses" class="mlink">Proses</a>
+    <a href="#kontak" class="btn btn-primary">Konsultasi Gratis</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="beranda">
+  <div class="wrap">
+    <div class="hero-head reveal">
+      <span class="eyebrow on-dark">Inovasi Digital, Solusi Nyata</span>
+      <h1>Digital Solution untuk <span class="hl">Web &amp; Mobile Apps</span></h1>
+      <p>InosifyDev membantu UMKM dan mahasiswa mewujudkan ide menjadi website dan aplikasi yang nyata — desain modern, cepat diakses, dan harga disesuaikan dengan kebutuhan Anda.</p>
+      <div class="hero-actions">
+        <a href="#kontak" class="btn btn-primary">Konsultasi Sekarang</a>
+        <a href="#layanan" class="btn btn-ghost-dark">Lihat Layanan</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><div class="trust-num">10+</div><div class="trust-label">Proyek Selesai</div></div>
+        <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label">Konsultasi Gratis</div></div>
+        <div class="trust-item"><div class="trust-num">24 Jam</div><div class="trust-label">Respon Cepat</div></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <svg viewBox="0 0 480 420" aria-hidden="true">
+        <path class="hv-line" d="M60,80 L230,60 M230,60 L400,110 M60,80 L120,230 M230,60 L230,200 M400,110 L360,260 M120,230 L230,200 M230,200 L360,260 M120,230 L150,350 M360,260 L300,360 M150,350 L300,360"/>
+        <path class="hv-line-pulse" d="M60,80 L230,60 L400,110"/>
+        <path class="hv-line-pulse" d="M230,200 L360,260 L300,360"/>
+        <circle class="node" cx="60" cy="80" r="5"/>
+        <circle class="node-dim" cx="230" cy="60" r="4"/>
+        <circle class="node" cx="400" cy="110" r="6"/>
+        <circle class="node-dim" cx="120" cy="230" r="4"/>
+        <circle class="node" cx="230" cy="200" r="7"/>
+        <circle class="node-dim" cx="360" cy="260" r="5"/>
+        <circle class="node" cx="150" cy="350" r="4"/>
+        <circle class="node-dim" cx="300" cy="360" r="5"/>
+      </svg>
+      <div class="hv-card c1">
+        <div class="cap">Respon Chat</div>
+        <div class="val">&lt; 24 Jam</div>
+      </div>
+      <div class="hv-card c2">
+        <div class="cap">Kepuasan Klien</div>
+        <div class="val">100%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="pad" id="tentang">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <span class="eyebrow">Tentang Kami</span>
+        <h2 class="section-title">Solusi Digital yang Disesuaikan dengan Kebutuhan Anda</h2>
+        <p>InosifyDev hadir untuk dua kelompok yang sering kesulitan mendapat solusi digital yang tepat: pelaku UMKM yang butuh kehadiran online profesional, dan mahasiswa yang butuh website atau aplikasi untuk tugas, skripsi, maupun proyek startup.</p>
+        <p>Kami percaya solusi digital tidak harus rumit atau mahal untuk terlihat serius. Setiap proyek dikerjakan dengan pendampingan penuh, dari diskusi awal hingga aplikasi Anda benar-benar siap dipakai.</p>
+
+        <div class="value-list">
+          <div class="value-item">
+            <span class="value-ic"><svg class="icon" viewBox="0 0 24 24"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>
+            <div><h4>Untuk UMKM</h4><span>Tingkatkan kepercayaan pelanggan dan jangkauan bisnis Anda lewat website atau mobile apps yang profesional.</span></div>
+          </div>
+          <div class="value-item">
+            <span class="value-ic"><svg class="icon" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+            <div><h4>Untuk Mahasiswa</h4><span>Butuh website atau aplikasi untuk tugas, skripsi, atau portofolio? Kami siap membantu mewujudkannya.</span></div>
+          </div>
+          <div class="value-item">
+            <span class="value-ic"><svg class="icon" viewBox="0 0 24 24"><path d="M20.8 4.6a5 5 0 0 0-7.1 0L12 6.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 20.3l8.8-8.6a5 5 0 0 0 0-7.1z"/></svg></span>
+            <div><h4>Pendampingan Penuh</h4><span>Kami tetap mendampingi setelah peluncuran, bukan hanya sampai proyek selesai dikerjakan.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-panel reveal">
+        <div class="stat-grid">
+          <div class="stat-box"><div class="n">10+</div><div class="l">Proyek digital dikerjakan</div></div>
+          <div class="stat-box"><div class="n">2</div><div class="l">Fokus segmen: UMKM &amp; mahasiswa</div></div>
+          <div class="stat-box"><div class="n">100%</div><div class="l">Konsultasi awal gratis</div></div>
+          <div class="stat-box"><div class="n">4</div><div class="l">Lini layanan utama</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="pad" id="layanan" style="background:var(--slate-50);">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Layanan Kami</span>
+      <h2 class="section-title">Empat Lini Layanan, Satu Tujuan</h2>
+      <p class="section-lead">Dari website UMKM pertama hingga aplikasi untuk skripsi dan startup — kami membantu setiap tahap ide digital Anda menjadi nyata.</p>
+    </div>
+
+    <div class="svc-grid reveal-stagger">
+      <div class="svc-card rs-child">
+        <span class="svc-ic"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3"/></svg></span>
+        <h3>Website UMKM &amp; Company Profile</h3>
+        <p>Website resmi yang menampilkan profil usaha, produk, dan kontak Anda secara profesional dan mudah diakses pelanggan.</p>
+        <a href="#" class="svc-link">Pelajari lebih lanjut <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+      <div class="svc-card rs-child">
+        <span class="svc-ic"><svg class="icon" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></span>
+        <h3>Mobile Apps</h3>
+        <p>Aplikasi Android/iOS untuk mendukung operasional bisnis atau menjadi produk digital baru bagi pelanggan Anda.</p>
+        <a href="#" class="svc-link">Pelajari lebih lanjut <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+      <div class="svc-card rs-child">
+        <span class="svc-ic"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="14" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg></span>
+        <h3>Landing Page &amp; Promosi</h3>
+        <p>Halaman fokus untuk kampanye, produk, atau promosi dengan satu tujuan: mendorong konversi pengunjung.</p>
+        <a href="#" class="svc-link">Pelajari lebih lanjut <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+      <div class="svc-card rs-child">
+        <span class="svc-ic"><svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        <h3>Custom Web Application</h3>
+        <p>Sistem web khusus untuk kebutuhan skripsi, tugas akhir, atau ide startup yang ingin Anda kembangkan lebih jauh.</p>
+        <a href="#" class="svc-link">Pelajari lebih lanjut <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY US ================= -->
+<section class="pad why">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow on-dark">Kenapa Pilih Kami</span>
+      <h2 class="section-title" style="color:#fff;">Dibangun untuk Diandalkan</h2>
+    </div>
+    <div class="why-grid reveal-stagger">
+      <div class="why-cell rs-child">
+        <div class="num">01</div>
+        <h3>Desain Modern &amp; Responsif</h3>
+        <p>Tampil rapi di semua perangkat, dari smartphone hingga layar desktop besar.</p>
+      </div>
+      <div class="why-cell rs-child">
+        <div class="num">02</div>
+        <h3>SEO Friendly</h3>
+        <p>Dibangun agar mudah ditemukan calon pelanggan lewat mesin pencari.</p>
+      </div>
+      <div class="why-cell rs-child">
+        <div class="num">03</div>
+        <h3>Cepat &amp; Aman</h3>
+        <p>Waktu muat halaman dioptimalkan dan data Anda diperlakukan dengan aman.</p>
+      </div>
+      <div class="why-cell rs-child">
+        <div class="num">04</div>
+        <h3>Harga Terjangkau Sesuai Kebutuhan</h3>
+        <p>Paket disesuaikan dengan skala kebutuhan, dari tugas mahasiswa hingga bisnis berkembang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PORTFOLIO ================= -->
+<section class="pad" id="proyek">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Portofolio</span>
+      <h2 class="section-title">Proyek yang Kami Kerjakan</h2>
+      <p class="section-lead">Sebagian dari proyek yang telah kami bantu wujudkan bersama UMKM dan mahasiswa.</p>
+    </div>
+
+    <div class="proj-grid reveal-stagger">
+      <div class="proj-card rs-child">
+        <div class="proj-mock proj-1"><div class="browser"><div class="bar"><span></span><span></span><span></span></div><div class="body"><div class="ln w60"></div><div class="ln w40"></div><div class="blk"></div></div></div></div>
+        <div class="proj-body">
+          <span class="proj-cat">F&amp;B — Website UMKM</span>
+          <h3>Warung Nusantara</h3>
+          <p>Website untuk warung makan lokal, menampilkan menu, jam buka, dan lokasi outlet secara jelas.</p>
+          <div class="tag-row"><span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">CMS</span></div>
+          <a href="#" class="svc-link">Lihat Proyek <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+      <div class="proj-card rs-child">
+        <div class="proj-mock proj-2"><div class="browser"><div class="bar"><span></span><span></span><span></span></div><div class="body"><div class="ln w60"></div><div class="ln w40"></div><div class="blk"></div></div></div></div>
+        <div class="proj-body">
+          <span class="proj-cat">Skripsi — Sistem Informasi</span>
+          <h3>Sistem Perpustakaan Digital</h3>
+          <p>Aplikasi web untuk tugas akhir mahasiswa, lengkap dengan katalog buku dan sistem peminjaman.</p>
+          <div class="tag-row"><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span></div>
+          <a href="#" class="svc-link">Lihat Proyek <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+      <div class="proj-card rs-child">
+        <div class="proj-mock proj-3"><div class="browser"><div class="bar"><span></span><span></span><span></span></div><div class="body"><div class="ln w60"></div><div class="ln w40"></div><div class="blk"></div></div></div></div>
+        <div class="proj-body">
+          <span class="proj-cat">UMKM — Toko Online</span>
+          <h3>Toko Kreatif</h3>
+          <p>Landing page dan katalog produk untuk UMKM kerajinan tangan, terhubung langsung ke WhatsApp pemesanan.</p>
+          <div class="tag-row"><span class="tag">React</span><span class="tag">Landing Page</span><span class="tag">SEO</span></div>
+          <a href="#" class="svc-link">Lihat Proyek <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="pad" id="proses" style="background:var(--slate-50);">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Cara Kerja</span>
+      <h2 class="section-title">Bagaimana Kami Bekerja</h2>
+    </div>
+
+    <div class="process-track reveal">
+      <div class="process-line"></div>
+      <div class="process-grid">
+        <div class="pstep"><div class="vline"></div>
+          <div class="pdot">01</div>
+          <div><h4>Konsultasi</h4><p>Diskusi awal gratis untuk memahami kebutuhan dan tujuan proyek Anda.</p></div>
+        </div>
+        <div class="pstep"><div class="vline"></div>
+          <div class="pdot">02</div>
+          <div><h4>Analisis &amp; Perencanaan</h4><p>Menyusun rencana teknis dan desain yang paling sesuai dengan kebutuhan tersebut.</p></div>
+        </div>
+        <div class="pstep"><div class="vline"></div>
+          <div class="pdot">03</div>
+          <div><h4>Development</h4><p>Proses pengembangan dengan update berkala agar Anda tetap terlibat di sepanjang proses.</p></div>
+        </div>
+        <div class="pstep">
+          <div class="pdot">04</div>
+          <div><h4>Launch &amp; Support</h4><p>Peluncuran resmi, dilanjutkan pendampingan dan dukungan teknis berkelanjutan.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="pad">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Testimoni</span>
+      <h2 class="section-title">Apa Kata Klien Kami</h2>
+    </div>
+
+    <div class="test-grid reveal-stagger">
+        <div class="test-card rs-child">
+          <div class="stars" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+          </div>
+          <q>InosifyDev paham betul kebutuhan usaha kecil seperti kami. Website jadi lebih rapi dan pelanggan lebih mudah menemukan menu serta lokasi.</q>
+          <div class="test-person">
+            <span class="avatar" style="background:#2557E0; color: wheat;">AP</span>
+            <div>
+              <h5 >Andi Pratama</h5>
+              <span >Pemilik, Warung Nusantara</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card rs-child">
+          <div class="stars" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+          </div>
+          <q>Sebagai mahasiswa tingkat akhir saya dibantu penuh dari nol sampai sistem siap sidang. Komunikasinya jelas dan sabar menjawab revisi.</q>
+          <div class="test-person">
+            <span class="avatar" style="background:#F5A623;">RM</span>
+            <div>
+              <h5>Rina Maharani</h5>
+              <span>Mahasiswa, Sistem Informasi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card rs-child">
+          <div class="stars" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+          </div>
+          <q>Harga sesuai dengan budget UMKM kami, tapi hasilnya tetap terlihat profesional. Pesanan lewat WhatsApp sekarang jauh lebih rapi.</q>
+          <div class="test-person">
+            <span class="avatar" style="background:#17244F;">BS</span>
+            <div>
+              <h5>Budi Santoso</h5>
+              <span>Pemilik, Toko Kreatif</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="pad cta-section" id="kontak">
+  <div class="wrap">
+    <span class="eyebrow on-dark">Mulai Sekarang</span>
+    <h2>Wujudkan Ide Anda Menjadi Web &amp; Apps yang Nyata!</h2>
+    <p>Ceritakan kebutuhan Anda — UMKM atau mahasiswa, kami siap membantu menemukan solusi digital yang tepat.</p>
+    <div class="hero-actions">
+      <a href="https://instagram.com/inosify.dev" class="btn btn-primary">DM Sekarang</a>
+      <a href="mailto:inosify.digital@gmail.com" class="btn btn-ghost-dark">Kirim Email</a>
+    </div>
+    <div class="cta-note">Konsultasi GRATIS!</div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#beranda" class="logo foot-logo">
+          <span class="logo-mark">
+            <img src="assets/inosify.png" alt="InosifyDev logo">
+          </span>
+          Inosify<b style="color:var(--amber-400);">Dev</b>
+        </a>
+        <p class="foot-desc">Mitra digital untuk UMKM dan mahasiswa yang ingin mewujudkan ide menjadi website dan aplikasi yang nyata.</p>
+        <div class="social-row">
+          <a href="https://instagram.com/inosify.dev" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="mailto:inosify.digital@gmail.com" aria-label="Email"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 6l9 6 9-6"/></svg></a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#tentang">Tentang</a></li>
+          <li><a href="#layanan">Layanan</a></li>
+          <li><a href="#proyek">Proyek</a></li>
+          <li><a href="#proses">Proses</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Layanan</h5>
+        <ul>
+          <li><a href="#layanan">Website UMKM &amp; Company Profile</a></li>
+          <li><a href="#layanan">Mobile Apps</a></li>
+          <li><a href="#layanan">Landing Page &amp; Promosi</a></li>
+          <li><a href="#layanan">Custom Web Application</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>Kontak</h5>
+        <ul class="foot-contact">
+          <li><svg class="icon" viewBox="0 0 24 24"><path d="M3 6l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg> inosify.digital@gmail.com</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> @inosify.dev</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Melayani seluruh Indonesia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 InosifyDev. Seluruh hak cipta dilindungi.</span>
+      <span>Inovasi Digital, Solusi Nyata</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav shadow
+  const header = document.getElementById('navHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const iconOpen = document.getElementById('menuIconOpen');
+  const iconClose = document.getElementById('menuIconClose');
+
+  function closeMenu(){
+    mobileMenu.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded','false');
+    iconOpen.style.display = '';
+    iconClose.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function toggleMenu(){
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    iconOpen.style.display = isOpen ? 'none' : '';
+    iconClose.style.display = isOpen ? '' : 'none';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
